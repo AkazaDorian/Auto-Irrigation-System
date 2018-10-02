@@ -1,4 +1,3 @@
-
 public class Hello {
 
 	public static main(String[] args) 
@@ -9,13 +8,11 @@ public class Hello {
 		hello.methodC();
 	}
 
-	public void methodA(void ) {
-		int  i = 1;
-		i ++;
-		
-	}
+	public void methodA(void ) { }
 
 	public void methodB(void) { }
 
-	public void methodC(void) { }
+	public void methodC(void) {
+	    System.out.println("Frank Xu method");
+	}
 }

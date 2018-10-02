@@ -12,5 +12,7 @@ public class Hello {
 
 	public void methodB(void) { }
 
-	public void methodC(void) { }
+	public void methodC(void) {
+	    System.out.println("Frank Xu method");
+	}
 }

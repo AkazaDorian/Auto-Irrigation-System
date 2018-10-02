@@ -10,7 +10,7 @@ public class Hello {
 
 	public void methodA(void ) { }
 
-	public void methodb(void) { }
+	public void methodB(void) { }
 
 	public void methodC(void) { }
 }

@@ -1,0 +1,8 @@
+[Unit]
+Description=Start Motor
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/startMotor.py
+
+[Install]
+WantedBy=multi-user.target

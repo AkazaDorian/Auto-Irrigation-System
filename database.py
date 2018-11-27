@@ -5,14 +5,14 @@ import datetime
 # build Connection to a database
 conn = sqlite3.connect('DataBase.db')
 # define cursor
-c = conn.cursor()
+cur = conn.cursor()
 
 
 # create a table named irrigationRecord with columns datestamp(TEXT), humidity(DOUBLE), and temperature(DOUBLE)
 # if the table does not exists
 def create_table():
-        c.execute('CREATE TABLE IF NOT EXISTS irrigationRecord(datestamp TEXT, humidity DOUBLE, temperature DOUBLE)')
-        c.execute('CREATE TABLE IF NOT EXISTS photoRecord(datestamp TEXT, image BLOB)')
+        cur.execute('CREATE TABLE IF NOT EXISTS irrigationRecord(datestamp TEXT, humidity DOUBLE, temperature DOUBLE)')
+        cur.execute('CREATE TABLE IF NOT EXISTS photoRecord(datestamp TEXT, image BLOB)')
 
 
 # write data humidity, temperayure to the table use 'cursor.execute()' with timestamps
@@ -23,7 +23,7 @@ def data_entry(humid, temp):
         date = str(time.strftime("%z-%Y-%m-%d-%H-%M-%S"))
         humidity = humid
         temerature = temp
-        c.execute("INSERT INTO irrigationRecord (datestamp, humidity, temperature) VALUES (?, ?, ?)",
+        cur.execute("INSERT INTO irrigationRecord (datestamp, humidity, temperature) VALUES (?, ?, ?)",
                   (date, humidity, temp))
         conn.commit()
 
@@ -33,7 +33,7 @@ def image_entry(im):
         unix = time.time()
         date = str(time.strftime("%z-%Y-%m-%d-%H-%M-%S"))
         image = im
-        c.execute("INSERT INTO photoRecord (datestamp, image) VALUES (?, ?)", (date, image))
+        cur.execute("INSERT INTO photoRecord (datestamp, image) VALUES (?, ?)", (date, image))
         conn.commit()
 
 
@@ -49,7 +49,7 @@ def get_data_column(data):
 
 
 def read_data_from_db():
-        c.execute('SELECT * FROM irrigationRecord WHERE datestamp IN (select max(datestamp) from irrigationRecord)')
+        cur.execute('SELECT * FROM irrigationRecord WHERE datestamp IN (select max(datestamp) from irrigationRecord)')
         data = c.fetchone()
         time, humidity, temperature = get_data_column(data)
         return time, humidity, temperature
@@ -62,21 +62,21 @@ def get_image_column(data):
 
 
 def read_image_from_db():
-        c.execute('SELECT * FROM photoRecord WHERE datestamp IN (select max(datestamp) from photoRecord)')
+        cur.execute('SELECT * FROM photoRecord WHERE datestamp IN (select max(datestamp) from photoRecord)')
         data = c.fetchone()
         time, humidity, temperature = get_image_column(data)
         return time, humidity, temperature
 
 
 def readAllData():
-        c.execute('SELECT * FROM irrigationRecord')
+        cur.execute('SELECT * FROM irrigationRecord')
         data = c.fetchall()
         return data
 
 
 # close cursor
-if c:
-        c.close()
+if cur:
+        cur.close()
 
 # cole connection to database
 if conn:

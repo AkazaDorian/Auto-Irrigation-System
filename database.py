@@ -29,7 +29,7 @@ def data_entry(humid, temp):
 
 
 def image_entry(im):
-        create_image_table()
+        create_table()
         unix = time.time()
         date = str(time.strftime("%z-%Y-%m-%d-%H-%M-%S"))
         image = im

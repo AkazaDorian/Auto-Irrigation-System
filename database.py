@@ -40,6 +40,7 @@ def read_data_from_db():
         data = c.fetchone()
         time, humidity, temperature = get_data_column(data)
         return time, humidity, temperature
+
 # read the whole database for irrigation data
 def readAllData():
         cur.execute('SELECT * FROM irrigationRecord')

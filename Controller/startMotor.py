@@ -14,7 +14,7 @@ for p in ports:
 '''
 A stepper motor requires its 4 pins to be True in turn to rotate.
 '''
-while(True):
+while True:
     for j in range(0, 4):
         time.sleep(0.002)
         for i in range(0, 4):

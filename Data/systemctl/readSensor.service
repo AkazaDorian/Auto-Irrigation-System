@@ -1,0 +1,8 @@
+[Unit]
+Description=Read Sensor
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/proj/readSensor.py
+
+[Install]
+WantedBy=multi-user.target

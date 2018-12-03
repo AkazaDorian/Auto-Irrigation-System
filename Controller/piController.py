@@ -1,4 +1,4 @@
-import tcp, udp, bash
+import tcp, udp, bash, time
 
 ANDROID_UDP_PORT = 10000
 ANDROID_TCP_PORT = 10002
@@ -12,16 +12,15 @@ PI_CONTROL_TCP_PORT_AND = 10002
 PI_CONTROL_TCP_PORT_DATA = 10003
 
 def main():
-    while(True):
+    while True:
         command, address = udp.receive(PI_CONTROL_UDP_PORT_AND)
         if command == 'h' or command == 't': # humidity or temperature requested
             udp.send(PI_DATA_IP, PI_DATA_UDP_PORT, command)
             val, addr = udp.receive(PI_CONTROL_UDP_PORT_DATA)
             udp.send(address[0], ANDROID_UDP_PORT, val)
-        elif command == 'i': # image requested
+        elif command == 'i': # image requestedm, 
             udp.send(PI_DATA_IP, PI_DATA_UDP_PORT, command)
-            tcp.receive(PI_CONTROL_TCP_PORT_DATA)
-            #TODO forward the data stream to address
+            tcp.forward(PI_CONTROL_TCP_PORT_DATA, address[0], ANDROID_TCP_PORT)
         elif command == 'r': # start motor requested
             bash.command('sudo systemctl start motor')
         elif command == 's': # stop motor requested

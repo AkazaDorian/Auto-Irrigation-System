@@ -1,0 +1,8 @@
+[Unit]
+Description=Start Auto Irrigation
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/proj/startAutoIrrigation.py
+
+[Install]
+WantedBy=multi-user.target

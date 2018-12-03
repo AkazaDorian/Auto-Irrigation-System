@@ -23,3 +23,4 @@ def send(ip, port, txt):
     except socket.error as msg: 
         print(msg) 
         sys.exit(1) 
+    s.close()

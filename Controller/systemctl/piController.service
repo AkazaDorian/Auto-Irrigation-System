@@ -1,0 +1,8 @@
+[Unit]
+Description=piController
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/proj/piController.py
+
+[Install]
+WantedBy=multi-user.target

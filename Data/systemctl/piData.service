@@ -1,0 +1,8 @@
+[Unit]
+Description=piData
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/proj/piData.py
+
+[Install]
+WantedBy=multi-user.target

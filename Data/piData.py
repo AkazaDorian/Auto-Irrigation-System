@@ -1,5 +1,6 @@
-import tcp, udp, time, serial
+import tcp, udp, time, bash
 from picamera import PiCamera
+import database
 
 ANDROID_UDP_PORT = 10000
 ANDROID_TCP_PORT = 10002
@@ -18,33 +19,22 @@ def takePhoto():
     time.sleep(5)
     currTime = time.strftime('%z-%Y-%m-%d-%H-%M-%S', \
         time.localtime(time.time()))
-    filepath = '/home/pi/photo/' + currTime + '.jpg'
+    filepath = '/home/pi/proj/photo/' + currTime + '.jpg'
     camera.capture(filepath)
     camera.stop_preview()
+    camera.close()
     return filepath
 
-def readSensor():
-    ser = serial.Serial('/dev/ttyACM0',9600)
-    time.sleep(2)
-    print('reading humidity')
-    ser.write('h'.encode())
-    hum = ser.readline().decode('utf-8')
-    print('reading temperature')
-    ser.write('t'.encode())
-    tem = ser.readline().decode('utf-8')
-    return hum, tem
-
 def main():
-    while(True):
+    bash.command('sudo systemctl start readSensor')
+    while True:
         command, address = udp.receive(PI_DATA_UDP_PORT)
         if command == 'h':
-            #TODO grab sensor log from database, save in hum
-            hum, tem = readSensor()
-            udp.send(PI_CONTROL_IP_DATA, PI_CONTROL_UDP_PORT_DATA, hum)
+            time, hum, tem = database.read_data_from_db()
+            udp.send(PI_CONTROL_IP_DATA, PI_CONTROL_UDP_PORT_DATA, str(hum))
         elif command == 't':
-            #TODO grab sensor log from database, save in tem
-            hum, tem = readSensor()
-            udp.send(PI_CONTROL_IP_DATA, PI_CONTROL_UDP_PORT_DATA, tem)
+            time, hum, tem = database.read_data_from_db()
+            udp.send(PI_CONTROL_IP_DATA, PI_CONTROL_UDP_PORT_DATA, str(tem))
         elif command == 'i':
             path = takePhoto()
             tcp.send(PI_CONTROL_IP_DATA, PI_CONTROL_TCP_PORT_DATA, path)

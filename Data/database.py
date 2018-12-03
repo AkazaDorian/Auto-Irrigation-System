@@ -67,35 +67,3 @@ def readAllData():
     cur.execute('SELECT * FROM irrigationRecord')
     data = cur.fetchall()
     return data
-
-'''
-# close cursor
-if cur:
-    cur.close()
-
-# cole connection to database
-if conn:
-    conn.close()
-'''
-
-## function Test ##
-#readAll()
-#print('                   ')
-#ti,hu,tem = read_data_from_db()
-#print(ti)
-#print(hu)
-#print(tem)
-
-
-#data_entry(25.36, 59.63)
-#data_entry(26.35, 25.02)
-#data_entry(15.68, -96.36)
-#data_entry(29.68, -48.02)
-#data_entry(39.48, 69.48)
-#data_entry(36.78, -69.15)
-#data_entry(78.96, 19.68)
-#data_entry(98.15, 36.14)
-#data_entry(48.06, 02.36)
-#data_entry(19.00, -8.69)
-#data_entry(13.69, 02.95)
-#data_entry(48.96, 18.96)

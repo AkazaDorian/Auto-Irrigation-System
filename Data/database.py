@@ -24,7 +24,7 @@ def data_entry(humid, temp):
         (date, humid, temp))
     conn.commit()
 
-
+# this is the function used to store image in the database
 def image_entry(im):
     create_table()
     date = str(time.strftime("%z-%Y-%m-%d-%H-%M-%S"))
@@ -33,36 +33,36 @@ def image_entry(im):
     conn.commit()
 
 
-# read needed data from database using cursor.execute() function
-# use 'select from table_name WHERE conditions' inside the execute() function
-# 'fetchall()' to get all the data in selection
-# print or return the data
+# used in the read_data_from_db() method to return one column in a row at a time
 def get_data_column(data):
     col_time = data[0]
     col_humidity = data[1]
     col_temperature = data[2]
     return col_time, col_humidity, col_temperature
 
-
+# read newest data from database using cursor.execute() function
+# use 'select from table_name WHERE conditions' inside the execute() function
+# 'fetchall()' to get all the data in selection
+# print or return the data
 def read_data_from_db():
     cur.execute('SELECT * FROM irrigationRecord WHERE datestamp IN (select max(datestamp) from irrigationRecord)')
     data = cur.fetchone()
     time, humidity, temperature = get_data_column(data)
     return time, humidity, temperature
 
-
+# used in the read_image_from_db() method to return one column in a row at a time
 def get_image_column(data):
     col_time = data[0]
     col_image = data[1]
     return col_time, col_image
 
-
+# read newest image from database using cursor.execute() function
 def read_image_from_db():
     cur.execute('SELECT * FROM photoRecord WHERE datestamp IN (select max(datestamp) from photoRecord)')
     data = cur.fetchone()
     return get_image_column(data)
 
-
+# read all the data in the database, image not included
 def readAllData():
     cur.execute('SELECT * FROM irrigationRecord')
     data = cur.fetchall()

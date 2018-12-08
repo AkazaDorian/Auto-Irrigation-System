@@ -35,13 +35,15 @@ def get_data_column(data):
     col_temperature = data[2]
     return col_time, col_humidity, col_temperature
 
-
+# read newest data from database using cursor.execute() function
+# use 'select from table_name WHERE conditions' inside the execute() function
+# 'fetchall()' to get all the data in selection
+# print or return the data
 def read_data_from_db():
     cur.execute('SELECT * FROM irrigationRecord WHERE datestamp IN (select max(datestamp) from irrigationRecord)')
     data = cur.fetchone()
     time, humidity, temperature = get_data_column(data)
     return time, humidity, temperature
-
 
 def readAllData():
     cur.execute('SELECT * FROM irrigationRecord')

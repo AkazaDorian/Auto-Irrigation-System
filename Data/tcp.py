@@ -22,7 +22,7 @@ def receive(port):
         while filesize > 0: 
             data = sock.recv(1024)
             fp.write(data) 
-            filesize = filesize - 1024
+            filesize = filesize - len(data)
     sock.close() 
     s.close() 
 

@@ -1,0 +1,17 @@
+from database import *
+
+data_entry(25.36, 59.63)
+time, humidity, temperature = read_data_from_db()
+assert(humidity == 25.36 and temperature == 59.63)
+data_entry(26.35, 25.02)
+time, humidity, temperature = read_data_from_db()
+assert(humidity == 26.35 and temperature == 25.02)
+data_entry(15.68, -96.36)
+time, humidity, temperature = read_data_from_db()
+assert(humidity == 15.68 and temperature == -96.36)
+data_entry(29.68, -48.02)
+time, humidity, temperature = read_data_from_db()
+assert(humidity == 29.68 and temperature == -48.02)
+data_entry(39.48, 69.48)
+time, humidity, temperature = read_data_from_db()
+assert(humidity == 39.48 and temperature == 69.48)

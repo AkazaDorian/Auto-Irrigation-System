@@ -25,14 +25,6 @@ def data_entry(humid, temp):
     conn.commit()
 
 
-def image_entry(im):
-    create_table()
-    date = str(time.strftime("%z-%Y-%m-%d-%H-%M-%S"))
-    image = im
-    cur.execute("INSERT INTO photoRecord (datestamp, image) VALUES (?, ?)", (date, image))
-    conn.commit()
-
-
 # read needed data from database using cursor.execute() function
 # use 'select from table_name WHERE conditions' inside the execute() function
 # 'fetchall()' to get all the data in selection
@@ -49,18 +41,6 @@ def read_data_from_db():
     data = cur.fetchone()
     time, humidity, temperature = get_data_column(data)
     return time, humidity, temperature
-
-
-def get_image_column(data):
-    col_time = data[0]
-    col_image = data[1]
-    return col_time, col_image
-
-
-def read_image_from_db():
-    cur.execute('SELECT * FROM photoRecord WHERE datestamp IN (select max(datestamp) from photoRecord)')
-    data = cur.fetchone()
-    return get_image_column(data)
 
 
 def readAllData():

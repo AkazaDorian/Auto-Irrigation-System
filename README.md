@@ -12,7 +12,7 @@ Done by Group Tuesday 3.
 
 2. Download the Data folder (https://github.com/AkazaDorian/Auto-Irrigation-System/tree/master/Data) into Pi 2, rename the folder to be `proj`. 
 
-3. Copy the files inside `systemctl` folder into `/etc/systemd/system/`, run `sudo systemctl daemon-reload". 
+3. Copy the files inside `systemctl` folder into `/etc/systemd/system/`, run `sudo systemctl daemon-reload`. 
 
 4. Modify the IP addresses and ports in piController.py and piData.py to the IP and ports to be used. 
 

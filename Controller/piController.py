@@ -18,7 +18,7 @@ def main():
             udp.send(PI_DATA_IP, PI_DATA_UDP_PORT, command)
             val, addr = udp.receive(PI_CONTROL_UDP_PORT_DATA)
             udp.send(address[0], ANDROID_UDP_PORT, val)
-        elif command == 'i': # image requestedm, 
+        elif command == 'i': # image requested, 
             udp.send(PI_DATA_IP, PI_DATA_UDP_PORT, command)
             tcp.forward(PI_CONTROL_TCP_PORT_DATA, address[0], ANDROID_TCP_PORT)
         elif command == 'r': # start motor requested

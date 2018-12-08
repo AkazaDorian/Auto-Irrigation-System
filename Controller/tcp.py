@@ -25,6 +25,7 @@ def receive(port):
             filesize = filesize - len(data)
     sock.close() 
     s.close() 
+    return filename
 
 def send(ip, port, file):
     try: 

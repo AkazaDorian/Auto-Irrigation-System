@@ -1,4 +1,4 @@
-import tcp, udp, bash, time
+import tcp, udp, bash, time, basic
 
 ANDROID_UDP_PORT = 10000
 ANDROID_TCP_PORT = 10002
@@ -20,7 +20,11 @@ def main():
             udp.send(address[0], ANDROID_UDP_PORT, val)
         elif command == 'i': # image requested, 
             udp.send(PI_DATA_IP, PI_DATA_UDP_PORT, command)
-            tcp.forward(PI_CONTROL_TCP_PORT_DATA, address[0], ANDROID_TCP_PORT)
+            #tcp.forward(PI_CONTROL_TCP_PORT_DATA, address[0], ANDROID_TCP_PORT)
+            # Due to implementation difficulties, replaces by cloudnary library
+            filename = tcp.receive(PI_CONTROL_TCP_PORT_DATA)
+            url = basic.upload_files(filename) # upload received photo to cloudnary
+            udp.send(address[0], ANDROID_UDP_PORT, url) # send url to android
         elif command == 'r': # start motor requested
             bash.command('sudo systemctl start motor')
         elif command == 's': # stop motor requested
